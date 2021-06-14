@@ -1,11 +1,7 @@
 #include<bits/stdc++.h>
+#include "./transaction_node.h"
 #define ll long long int
 using namespace std;
-
-struct Node {
-    ll fees, weight;
-    vector<string> parent_txids;
-};
 
 class CSV_Handler {
 private:
