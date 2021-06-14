@@ -1,5 +1,4 @@
 #include<bits/stdc++.h>
-#include "./transaction_node.h"
 #define ll long long int
 using namespace std;
 
@@ -22,8 +21,10 @@ private:
         // Here parentString contains data about parents of this transaction
         string parentString = splitter(line, ',', transactionInformation);
         vector<string> parentList;
-        string lastParent = splitter(parentString, ';', parentList);
-        parentList.push_back(lastParent);
+        if(parentString.size() > 0) {
+            string lastParent = splitter(parentString, ';', parentList);
+            parentList.push_back(lastParent);
+        }
 
         // transactionInformation vector contains data about txid, fees, weight
         // parentList contains txid of all parents
