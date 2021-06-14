@@ -2,7 +2,6 @@
 #include "./utils/transaction_node.h"
 #include "./utils/csv_handler.h"
 #include "./algorithms/algorithm1.h"
-#include "./algorithms/algorithm2.h"
 
 #define ll long long int
 using namespace std;
@@ -17,8 +16,7 @@ int main() {
     // Generate a Transaction Graph
     map<string, Node> transactionGraph = CSV_Handler::parseCSVFromStdIn();
 
-    // algorithm1(transactionGraph, 4000000);
-    algorithm2(transactionGraph, 4000000); // This is more efficient algorithm
+    algorithm1(transactionGraph, 4000000);
 
     return 0;
 }
