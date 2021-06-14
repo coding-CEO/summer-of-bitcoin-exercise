@@ -2,7 +2,9 @@
 #define ll long long int
 using namespace std;
 
-/*
+/* 
+* Fees from this Algorithm = 5713878
+*
 * Algorithm:
 *
 * 1) Sort nodes accoding to their (fees/weight) ratio in decreasing order
@@ -13,6 +15,7 @@ using namespace std;
 * 6) After all nodes are done we stop.
 */
 
+// This Returns total weight in the subtree of transactionId = txid
 ll getWeight(map<string, Node> &transactionGraph, string txid, set<string> &visitedTransactions) {
     ll weight = transactionGraph[txid].weight;
     for(string parentTxid : transactionGraph[txid].parent_txids) {
@@ -24,6 +27,7 @@ ll getWeight(map<string, Node> &transactionGraph, string txid, set<string> &visi
     return weight;
 }
 
+// This Returns total fees in the subtree of transactionId = txid and pushes the output to block.txt
 ll getFees(map<string, Node> &transactionGraph, string txid, set<string> &visitedTransactions) {
     ll fees = transactionGraph[txid].fees;
     visitedTransactions.insert(txid);
@@ -34,8 +38,9 @@ ll getFees(map<string, Node> &transactionGraph, string txid, set<string> &visite
         fees += getFees(transactionGraph, parentTxid, visitedTransactions);
     }
 
-    // This will be directly stored in block.txt
+    // This transactionId will be directly pushed to block.txt
     cout << txid << endl;
+
     return fees;
 }
 
@@ -43,6 +48,7 @@ void algorithm1(map<string, Node> &transactionGraph, ll MAX_WEIGHT) {
     // pair<fees/weight, txid>. we want maximum fees/weight ratio
     priority_queue<pair<double, string>> maxHeap;
 
+    // sort transactions in decreasing order of (fees/weight) ratio using maxheap
     for(auto transaction : transactionGraph) {
         double value = (double) transaction.second.fees / (double) transaction.second.weight;
         maxHeap.push({value, transaction.first});
@@ -58,7 +64,7 @@ void algorithm1(map<string, Node> &transactionGraph, ll MAX_WEIGHT) {
         string txid = p.second;
         maxHeap.pop();
 
-        // if this transaction is already done then continue
+        // if this transaction is already visited then continue
         if(visitedTransactions.find(txid) != visitedTransactions.end())
             continue;
 
@@ -67,15 +73,8 @@ void algorithm1(map<string, Node> &transactionGraph, ll MAX_WEIGHT) {
         if(transactionWeight+currentBlockWeight > MAX_WEIGHT)
             continue;
 
-        // Take this and all of its parent transactions
+        // Take fees, weight and mark all parent transactions as visited
         currentBlockFees += getFees(transactionGraph, txid, visitedTransactions);
         currentBlockWeight += transactionWeight;
     }
-    // Fees from this Algorithm = 5713878
-    // cout << currentBlockFees << endl;
-
-    // cout << visitedTransactions.size() << endl;
-
-    // 400 Weight is remaining only
-    // cout << MAX_WEIGHT - currentBlockWeight << endl;
 }
