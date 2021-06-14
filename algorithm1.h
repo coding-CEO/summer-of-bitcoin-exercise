@@ -2,6 +2,17 @@
 #define ll long long int
 using namespace std;
 
+/*
+* Algorithm:
+*
+* 1) Sort nodes accoding to their (fees/weight) ratio in decreasing order
+* 2) If top node is already visited then remove this node
+* 3) Else Calculate totalWeight of unvisited nodes in its subtree
+* 4) If this weight is out of limits remove this node
+* 5) Else get sum of fees and weight of all unvisited nodes in its subtree and mark them as visited
+* 6) After all nodes are done we stop.
+*/
+
 ll getWeight(map<string, Node> &transactionGraph, string txid, set<string> &visitedTransactions) {
     ll weight = transactionGraph[txid].weight;
     for(string parentTxid : transactionGraph[txid].parent_txids) {
@@ -62,5 +73,9 @@ void algorithm1(map<string, Node> &transactionGraph, ll MAX_WEIGHT) {
     }
     // Fees from this Algorithm = 5713878
     // cout << currentBlockFees << endl;
+
     // cout << visitedTransactions.size() << endl;
+
+    // 400 Weight is remaining only
+    // cout << MAX_WEIGHT - currentBlockWeight << endl;
 }

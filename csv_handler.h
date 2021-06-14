@@ -21,6 +21,7 @@ private:
         // Here parentString contains data about parents of this transaction
         string parentString = splitter(line, ',', transactionInformation);
         vector<string> parentList;
+
         if(parentString.size() > 0) {
             string lastParent = splitter(parentString, ';', parentList);
             parentList.push_back(lastParent);
@@ -29,8 +30,8 @@ private:
         // transactionInformation vector contains data about txid, fees, weight
         // parentList contains txid of all parents
         Node node;
-        node.fees = atoll(transactionInformation[1].c_str());
-        node.weight = atoll(transactionInformation[2].c_str());
+        node.fees = atoll(transactionInformation[1].c_str()); // convert string to int
+        node.weight = atoll(transactionInformation[2].c_str()); // convert string to int
         node.parent_txids = parentList;
 
         graph[transactionInformation[0]] = node;

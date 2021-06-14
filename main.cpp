@@ -2,6 +2,7 @@
 #include "./transaction_node.h"
 #include "./csv_handler.h"
 #include "./algorithm1.h"
+#include "./algorithm2.h"
 
 #define ll long long int
 using namespace std;
@@ -13,8 +14,9 @@ int main() {
     freopen("./block.txt", "w", stdout);
 
     map<string, Node> transactionGraph = CSV_Handler::parseCSVFromStdIn();
-    
-    algorithm1(transactionGraph, 4000000);
+
+    // algorithm1(transactionGraph, 4000000);
+    // algorithm2(transactionGraph, 4000000);
 
     return 0;
 }
